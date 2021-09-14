@@ -1,0 +1,197 @@
+---
+title: Swagger와 Redoc을 이용한 API 문서 자동화하기
+slug: auto-docs-with-swagger-and-redoc
+author: paul
+tags:
+  - Development
+excerpt: About Auto-Docs
+date: 2020-12-09
+featuredImage: uploads/paul-soomgo-py.png
+---
+
+안녕하세요. 숨고 백엔드 엔지니어 Paul 입니다.
+
+이번 포스팅에서는 Soomgo-py에 추가된 기능인 Auto-Docs(자동 문서화)에 대해 기록하려 합니다. Soomgo-py가 무엇인지에 대해서는 [여기](http://localhost:8080/blog/2020/11/02/msa-architecture-soomgo-py/)를 참고해 주세요.
+
+Python의 대표적인 API 문서 도구로는 <u>Swagger</u>와 <u>ReDoc</u>이 있습니다. Swagger는 V3+부터 OpenAPI라는 이름으로 변경되었습니다. Soomgo-py에서 제공하는 Auto-Docs는 개발자가 API를 구현하면서 문서화를 위한 코드를 추가하지 않아도 위에서 언급한 Swagger와 Redoc을 활용하여 문서를 자동으로 생성해 주는 것을 의미합니다. 이로 하여금 개발자는 비즈니스 로직에 더욱 집중할 수 있고 리소스를 절약할 수 있습니다.
+
+# 사용된 라이브러리
+
+1. Swagger UI — Interactive API 문서 도구 입니다.
+2. ReDoc — Alternative API 문서 도구 입니다.
+3. OpenAPI Specification(OAS)—Swagger에서 OpenAPI 문서화를 위한 JSON 포맷의 표준 인터페이스 입니다. 이를 활용하면 특정 언어에 구애받지 않고 문서화 할 수 있고 위에서 언급한 Swagger UI, ReDoc은 OAS를 지원하고 있습니다.
+4. apispec —OAS generator인 Python 라이브러리입니다. Marshmallow schema를 OAS로 생성해 주는 플러그인이 기본적으로 내장되어 있습니다.
+
+# 구현
+
+1. ReDoc HTML 문서 작성
+
+```py
+class DocsResource:
+    html = """
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swagger-ui-dist@3/swagger-ui.css">
+            <title>Swagger UI</title>
+        </head>
+        <body><div id="swagger-ui"></div>
+        <script src="https://cdn.jsdelivr.net/npm/swagger-ui-dist@3/swagger-ui-bundle.js"></script>
+        <script>
+            const ui = SwaggerUIBundle({
+                url: 'openapi.json',
+                dom_id: '#swagger-ui',
+                presets: [
+                    SwaggerUIBundle.presets.apis,
+                    SwaggerUIBundle.SwaggerUIStandalonePreset
+                ],
+                layout: "BaseLayout",
+                deepLinking: true,
+                showExtensions: true,
+                showCommonExtensions: true
+            })
+        </script>
+        </body>
+        </html>
+        """
+
+    def on_get(self, req, resp):
+        resp.content_type = 'text/html'
+        resp.body = self.html
+```
+
+2. ReDoc HTML 문서 작성
+
+```py
+class RedocResource:
+    html = """
+    <!DOCTYPE html>
+        <html>
+        <head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>ReDoc</title>
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,700|Roboto:300,400,700" rel="stylesheet">
+        </head>
+        <body>
+        <redoc spec-url="openapi.json"></redoc>
+        <script src="https://cdn.jsdelivr.net/npm/redoc@next/bundles/redoc.standalone.js"> </script>
+        </body>
+        </html>
+        """
+
+    def on_get(self, req, resp):
+        resp.content_type = 'text/html'
+        resp.body = self.html
+```
+
+3. apispec 초기화
+
+```py
+class OpenAPI:
+    ...
+    def init_spec(self):
+        self.spec = APISpec(
+            title='API Service',
+            version='1.0.0',
+            openapi_version='3.0.2',
+            plugins=[MarshmallowPlugin()],
+        )
+
+        self.build()
+```
+
+4. routes를 순회하면서 OAS 인터페이스를 응답하는 /openapi.json 구현
+
+```py
+class OpenAPI:
+    ...
+
+    def _spec_path(self, path, resource, method):
+        _spec = {
+            'path': path,
+            'parameters': self._spec_path_parameters(resource, path),
+            'operations': {
+                method: {
+                    'summary': self._spec_path_summary(resource),
+                    'operationId': f'{method}{path}',
+                    'tags': self._spec_path_tags(resource),
+                }
+            },
+        }
+
+        responses = self._spec_path_responses(resource)
+        if responses:
+            _spec['operations'][method]['responses'] = responses
+
+        description = self._spec_path_description(resource)
+        if description:
+            _spec['operations'][method]['description'] = description
+
+        security = self._spec_path_security(resource)
+        if security:
+            _spec['operations'][method]['security'] = security
+
+        request_body = self._spec_path_request_body(resource)
+        if request_body:
+            _spec['operations'][method]['requestBody'] = request_body
+
+        self.spec.path(**_spec)
+
+    def build(self):
+        routes = self._get_all_routes()
+
+        for route in routes:
+            path, resource = route
+
+            if isinstance(resource, dict):
+                for method, partial_resource in resource.items():
+                    self._spec_path(path, partial_resource, method)
+            else:
+                for mod in dir(resource):
+                    if mod.startswith('on_'):
+                        _, method = mod.split('_')
+
+                        self._spec_path(path, resource, method)
+
+    def to_dict(self):
+        return self.spec.to_dict()
+```
+
+![](./images/1.png)  
+_Swagger UI_
+
+![](./images/2.png)  
+_ReDoc_
+
+# Customizing
+
+아무리 잘 구조화된 프레임워크라도 다양한 상황의 다양한 요구 조건을 커버하기란 쉽지 않기 때문에 Application 레벨에서 커스터마이징 할 수 있는 유연함이 제공되어야 합니다. Soomgo-py Auto-Docs에서는 Inner Class로 문서를 커스터마이징 할 수 있습니다.
+
+```py
+class SampleUpdateResource(UpdateResource):
+    model = SampleModel
+    pk_column = 'id'
+    pk_url_kwarg = 'sample_id'
+    validation_schema = SamplePayloadSchema
+    authentication_classes = []
+
+    class OpenAPI:
+        tags = ['default', 'sample']
+        summary = '샘플 수정'
+        parameters = [{"name": "sample_id", "in": "path", "required": True, "type": "string"}]
+        security = [{"token_authentication": []}]
+        responses = {
+            "200": {"content": {"application/json": {"schema": {"$ref": "#/components/schemas/SampleUpsertSchema"}}}}}
+        description = '샘플 수정 API 입니다.'
+```
+
+![](./images/3.png)
+
+![](./images/4.png)
+
+제품을 구현하는 가장 비싼 비용 중에 하나가 “개발자 리소스”라고 생각합니다. 그래서 많은 기술 조직이 자동화를 통해 개발자 리소스를 절약하고 절약한 리소스를 통해 더욱 생산적인 일을 하거나 제품의 품질을 높이기 위해 노력하고 있습니다. 이러한 프레임워크를 사용하는 이유도 마찬가지로 개발자 리소스를 절약하기 위함 입니다.
+
+적어도 저희 조직에선 Soomgo-py Auto-Docs를 통해 개발자가 문서화를 위해 별도의 노력을 하지 않고 있으니 앞서 언급한 목표를 충분히 수행한다고 볼 수 있습니다.
+
+감사합니다.
