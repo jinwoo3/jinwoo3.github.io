@@ -1,5 +1,5 @@
 <template>
-  <Layout pageTitle="Starter Blog" pageSubtitle="Gridsome / Buefy / Netlify CMS">
+  <Layout pageTitle="Soomgo Tech" pageSubtitle="숨고 테크팀의 기술 블로그">
     <div class="section">
       <div class="container">
         <div class="columns">
@@ -9,10 +9,7 @@
               <div class="card-image">
                 <g-link :to="edge.node.path">
                   <figure class="image is-16by9">
-                    <img
-                      :src="`../../${edge.node.featuredImage}`"
-                      :alt="`${edge.node.title} image`"
-                    />
+                    <img :src="`${edge.node.featuredImage}`" :alt="`${edge.node.title} image`" />
                   </figure>
                 </g-link>
               </div>
@@ -22,7 +19,7 @@
                   <div class="media-left">
                     <g-link :to="edge.node.author.path">
                       <figure class="image is-48x48">
-                        <img :src="`../../${edge.node.author.image}`" alt="Placeholder image" />
+                        <img :src="`${edge.node.author.image}`" alt="Placeholder image" />
                       </figure>
                     </g-link>
                   </div>
@@ -100,7 +97,7 @@
 <script>
 export default {
   metaInfo: {
-    title: 'Hello, world!',
+    title: 'Main',
   },
 };
 </script>

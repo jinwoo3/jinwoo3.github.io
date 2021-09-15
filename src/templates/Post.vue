@@ -5,7 +5,7 @@
         <ul>
           <li><router-link to="/">Home</router-link></li>
           <li class="is-active">
-            <a href="#" aria-current="page">{{ $route.params.title }}</a>
+            <a href="#" aria-current="page">{{ $page.post.title }}</a>
           </li>
         </ul>
       </nav>
@@ -34,8 +34,6 @@
      author {
        id
      }
-     
-
     }
   }
 </page-query>
