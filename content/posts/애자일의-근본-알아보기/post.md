@@ -4,7 +4,7 @@ slug: agile
 author: jimmy
 tags:
   - Development
-excerpt: About Designer
+excerpt: About Agile
 date: 2021-05-20
 featuredImage: ./images/1.png
 ---

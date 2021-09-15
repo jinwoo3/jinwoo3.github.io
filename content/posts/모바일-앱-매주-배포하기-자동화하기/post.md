@@ -4,7 +4,7 @@ slug: mobile-app-deploy-automation
 author: jimmy
 tags:
   - Development
-excerpt: About Designer
+excerpt: Mobile App Deploy
 date: 2021-04-26
 featuredImage: ./images/1.png
 ---

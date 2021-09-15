@@ -6,7 +6,7 @@ tags:
   - Development
 excerpt: About Soomgo-py
 date: 2020-12-09
-featuredImage:
+featuredImage: ./images/1.png
 ---
 
 안녕하세요. 숨고 백엔드 엔지니어 Paul 입니다.

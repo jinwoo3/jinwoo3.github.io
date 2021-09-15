@@ -4,7 +4,7 @@ slug: mobile-app-deploy-create-rule
 author: jimmy
 tags:
   - Development
-excerpt: About Designer
+excerpt: Mobile App Deploy
 date: 2021-04-18
 featuredImage: ./images/1.png
 ---
