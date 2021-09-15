@@ -5,8 +5,6 @@
 // To restart press CTRL + C in terminal and run `gridsome develop`
 module.exports = {
   siteName: 'Soomgo Tech',
-  siteUrl: 'https://jinwoo3.github.io',
-  pathPrefix: '/tech-blog',
   plugins: [
     // Load all Blog Posts from file system
     {
