@@ -2,7 +2,7 @@
 id: zoey
 title: 'Zoey Kang'
 link: ''
-image: 'uploads/author-images/author-avatar.png'
+image: 'uploads/author-images/zoey.jpeg'
 email: ''
 blurb: 'Soomgo Frontend Engineer'
 ---

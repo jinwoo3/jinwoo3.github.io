@@ -18,10 +18,9 @@
     </main>
     <footer class="footer">
       <div class="content has-text-centered">
+        <p>&copy; 2021 SoomgoTech</p>
         <p>
-          Created by <a href="chadcollins.net"><strong>Chad Collins</strong></a
-          >. Powered by <a href="https://gridsome.org/"><strong>Gridsome</strong></a
-          >.
+          Powered by <a href="https://gridsome.org/"><strong>Gridsome</strong></a>
         </p>
       </div>
     </footer>

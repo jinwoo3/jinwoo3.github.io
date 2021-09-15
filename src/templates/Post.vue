@@ -1,5 +1,5 @@
 <template>
-  <Layout :pageTitle="$page.post.title">
+  <Layout :pageTitle="$page.post.title" :pageSubtitle="$page.post.author.id">
     <div class="box">
       <nav class="breadcrumb is-centered" aria-label="breadcrumbs">
         <ul>

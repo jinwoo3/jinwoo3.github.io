@@ -2,7 +2,7 @@
 id: derek
 title: 'Derek'
 link: ''
-image: 'uploads/author-images/author-avatar.png'
+image: 'uploads/author-images/derek.jpeg'
 email: ''
 blurb: 'Soomgo DevOps Engineer'
 ---

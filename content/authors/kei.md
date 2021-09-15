@@ -2,7 +2,7 @@
 id: kei
 title: 'Kei Jeon'
 link: 'github.com/kei'
-image: 'uploads/author-images/author-avatar.png'
+image: 'uploads/author-images/kei.jpeg'
 email: ''
 blurb: 'Soomgo Frontend Engineer'
 ---

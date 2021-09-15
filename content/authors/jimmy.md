@@ -2,7 +2,7 @@
 id: jimmy
 title: 'Jimmy Lee'
 link: ''
-image: 'uploads/author-images/author-avatar.png'
+image: 'uploads/author-images/jimmy.png'
 email: ''
 blurb: 'Soomgo Mobile Engineer'
 ---

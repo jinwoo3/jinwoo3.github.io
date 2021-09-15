@@ -2,7 +2,7 @@
 id: summer
 title: 'Summer Lee'
 link: ''
-image: 'uploads/author-images/author-avatar.png'
+image: 'uploads/author-images/summer.jpeg'
 email: ''
 blurb: 'Soomgo Product Designer'
 ---

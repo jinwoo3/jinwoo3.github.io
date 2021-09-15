@@ -2,7 +2,7 @@
 id: soomgo
 title: '숨고 Soomgo'
 link: ''
-image: 'uploads/author-images/author-avatar.png'
+image: 'uploads/author-images/soomgo.png'
 email: ''
 blurb: 'Soomgo'
 ---
