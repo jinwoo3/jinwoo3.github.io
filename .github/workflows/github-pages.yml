@@ -17,11 +17,6 @@ jobs:
 
       - name: Setup Node
         uses: actions/setup-node@v2.1.2
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.oks }}-node-
 
       - run: npm ci
       - run: npm run build
