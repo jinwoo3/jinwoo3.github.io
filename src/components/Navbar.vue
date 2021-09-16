@@ -2,10 +2,7 @@
   <b-navbar>
     <template slot="brand">
       <b-navbar-item tag="router-link" :to="{ path: '/' }">
-        <img
-          src="@/assets/images/branding.png"
-          alt="Lightweight UI components for Vue.js based on Bulma"
-        />
+        <img src="@/assets/images/soomgo.png" alt="Soomgo" />
       </b-navbar-item>
     </template>
     <template slot="start">

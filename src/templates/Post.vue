@@ -37,3 +37,11 @@
     }
   }
 </page-query>
+
+<script>
+export default {
+  metaInfo: {
+    title: 'Post',
+  },
+};
+</script>

@@ -71,6 +71,9 @@
 import PostItem from '../components/PostItem';
 export default {
   components: { PostItem },
+  metaInfo: {
+    title: 'Author',
+  },
 };
 </script>
 

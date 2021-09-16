@@ -2,7 +2,7 @@
 id: paul
 title: 'Paul Cho'
 link: ''
-image: 'uploads/author-images/author-avatar.png'
+image: 'uploads/author-images/paul.jpeg'
 email: ''
 blurb: 'Soomgo Backend Engineer'
 ---

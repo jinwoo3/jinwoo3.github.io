@@ -1,14 +1,10 @@
 <template>
-  <Layout pageTitle="About">
+  <Layout pageTitle="Soomgo Tech" pageSubtitle="숨고 테크팀의 기술 블로그">
     <section class="section">
       <div class="container">
         <div class="content">
-          <h2>About us</h2>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error doloremque omnis animi,
-            eligendi magni a voluptatum, vitae, consequuntur rerum illum odit fugit assumenda rem
-            dolores inventore iste reprehenderit maxime! Iusto.
-          </p>
+          <h2>About Soomgo Tech</h2>
+          <p>숨고 테크팀의 기술 블로그</p>
         </div>
       </div>
     </section>

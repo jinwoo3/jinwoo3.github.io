@@ -20,7 +20,7 @@
       <div class="content has-text-centered">
         <p>&copy; 2021 SoomgoTech</p>
         <p>
-          Powered by <a href="https://gridsome.org/"><strong>Gridsome</strong></a>
+          Powered by GitHub Pages
         </p>
       </div>
     </footer>
@@ -52,5 +52,13 @@ body {
   margin: 0;
   padding: 0;
   line-height: 1.5;
+}
+
+.navbar {
+  background-color: #00c7ae;
+}
+
+.hero.is-primary {
+  background-color: #00c7ae;
 }
 </style>
