@@ -4,7 +4,7 @@ content/authors 디렉토리 내에 markdown 파일 제목을 [닉네임.md]에 
 
 ```
 ---
-id: lloyd (소문자 권장)
+id: lloyd
 title: 'Lloyd Shin'
 link: 'your-github-link'
 image: 'uploads/author-images/author-avatar.png' (따로 넣고싶은 경우엔 static/uploads/author-images 내에 사진을 넣어주신 뒤 해당 파일 이름 기입)
