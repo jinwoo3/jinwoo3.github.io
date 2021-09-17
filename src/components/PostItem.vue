@@ -2,7 +2,7 @@
   <article class="media">
     <figure class="media-left">
       <p class="image is-64x64">
-        <img :src="`../../${post.node.author.image}`" />
+        <img class="is-rounded" :src="`../../${post.node.author.image}`" />
       </p>
     </figure>
     <div class="media-content">
