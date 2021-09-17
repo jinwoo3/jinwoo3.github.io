@@ -40,8 +40,10 @@
 
 <script>
 export default {
-  metaInfo: {
-    title: 'Post',
+  metaInfo() {
+    return {
+      title: this.$page.post.title,
+    };
   },
 };
 </script>

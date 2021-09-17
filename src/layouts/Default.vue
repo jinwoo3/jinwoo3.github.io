@@ -54,11 +54,11 @@ body {
   line-height: 1.5;
 }
 
-.navbar {
-  background-color: #00c7ae;
-}
+// .navbar {
+//   background-color: #00c7ae;
+// }
 
-.hero.is-primary {
-  background-color: #00c7ae;
-}
+// .hero.is-primary {
+//   background-color: #00c7ae;
+// }
 </style>

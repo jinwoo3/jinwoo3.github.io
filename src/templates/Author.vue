@@ -71,8 +71,10 @@
 import PostItem from '../components/PostItem';
 export default {
   components: { PostItem },
-  metaInfo: {
-    title: 'Author',
+  metaInfo() {
+    return {
+      title: `Posts by ${this.$page.author.title}`,
+    };
   },
 };
 </script>
@@ -83,5 +85,9 @@ export default {
 .post {
   padding-bottom: 1rem;
   border-bottom: 12px solid $primary;
+}
+
+.title {
+  padding-top: 1rem;
 }
 </style>

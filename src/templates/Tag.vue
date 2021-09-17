@@ -42,5 +42,10 @@ query BlogsByTags($id: ID) {
 import PostItem from '../components/PostItem';
 export default {
   components: { PostItem },
+  metaInfo() {
+    return {
+      title: `Tagged as ${this.$route.params.title}`,
+    };
+  },
 };
 </script>

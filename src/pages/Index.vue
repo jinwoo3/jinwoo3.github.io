@@ -100,8 +100,10 @@
 
 <script>
 export default {
-  metaInfo: {
-    title: 'Main',
+  metaInfo() {
+    return {
+      title: '숨고 기술 블로그',
+    };
   },
 };
 </script>
