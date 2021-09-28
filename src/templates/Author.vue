@@ -17,7 +17,7 @@
                 <img class="is-rounded" :src="`../../${$page.author.image}`" />
               </figure>
               <div class="content">
-                <h2 class="title is-5">About {{ $page.author.title }}</h2>
+                <h2 class="title is-5">{{ $page.author.title }}</h2>
                 <p>{{ $page.author.blurb }}</p>
               </div>
             </div>
@@ -81,6 +81,14 @@ export default {
 
 <style lang="scss" scoped>
 @import '@/assets/scss/overrides.scss';
+
+.box {
+  text-align: center;
+}
+
+.box figure {
+  margin: auto;
+}
 
 .post {
   padding-bottom: 1rem;

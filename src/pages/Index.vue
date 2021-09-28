@@ -47,7 +47,6 @@
                 <div class="content">
                   {{ edge.node.excerpt }}
                 </div>
-
                 <div class="tags">
                   <span v-for="tag in edge.node.tags" :key="tag.id">
                     <div class="tag">
@@ -60,6 +59,12 @@
               </div>
             </article>
           </div>
+          <div class="column box tag-container">
+            <p class="title">Tags</p>
+            <p class="tag" v-for="tag in $page.tags.edges" :key="tag.node.id">
+              <a :href="tag.node.path">{{ tag.node.id }}</a>
+            </p>
+          </div>
         </div>
       </div>
       <Pager class="pager-container" :info="$page.posts.pageInfo" />
@@ -69,6 +74,14 @@
 
 <page-query>
   query($page: Int) {
+    tags: allTag {
+      edges {
+        node {
+          id
+          path
+        }
+      }
+    }
     posts: allPost(perPage: 9, page: $page) @paginate {
       pageInfo {
         totalPages
@@ -113,6 +126,18 @@ export default {
 </script>
 
 <style>
+.box.tag-container {
+  margin: 12px;
+  top: 20px;
+  position: sticky;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  width: max-content;
+  height: max-content;
+  gap: 5px;
+}
+
 .pager-container {
   margin: 0 auto;
   width: max-content;
