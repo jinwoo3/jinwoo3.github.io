@@ -3,13 +3,16 @@
     <div class="section">
       <div class="container">
         <div class="columns">
-          <div class="column"></div>
           <div class="column cards-grid is-four-fifths">
             <article class="card grid-item" v-for="edge in $page.posts.edges" :key="edge.node.id">
               <div class="card-image">
                 <g-link :to="edge.node.path">
                   <figure class="image is-16by9">
-                    <img :src="`${edge.node.featuredImage}`" :alt="`${edge.node.title} image`" />
+                    <img
+                      class="content-image"
+                      :src="`${edge.node.featuredImage}`"
+                      :alt="`${edge.node.title} image`"
+                    />
                   </figure>
                 </g-link>
               </div>
@@ -21,7 +24,7 @@
                       <figure class="image is-48x48">
                         <img
                           class="is-rounded"
-                          :src="`${edge.node.author.image}`"
+                          :src="`../${edge.node.author.image}`"
                           alt="Placeholder image"
                         />
                       </figure>
@@ -45,36 +48,32 @@
                   {{ edge.node.excerpt }}
                 </div>
 
-                <div>
-                  <span v-for="(tag, index) in edge.node.tags" :key="tag.id">
+                <div class="tags">
+                  <span v-for="tag in edge.node.tags" :key="tag.id">
                     <div class="tag">
                       <g-link :to="tag.path">
                         {{ tag.id }}
                       </g-link>
                     </div>
-
-                    <!-- We will add a comma separator for the tags -->
-                    <span v-if="index + 1 < edge.node.tags.length">
-                      ,
-                    </span>
                   </span>
                 </div>
               </div>
             </article>
-
-            <div class="grid-item"></div>
-            <div class="grid-item"></div>
           </div>
-          <div class="column"></div>
         </div>
       </div>
+      <Pager class="pager-container" :info="$page.posts.pageInfo" />
     </div>
   </Layout>
 </template>
 
 <page-query>
-  query {
-    posts: allPost {
+  query($page: Int) {
+    posts: allPost(perPage: 9, page: $page) @paginate {
+      pageInfo {
+        totalPages
+        currentPage
+      }
       edges {
         node {
           id
@@ -99,7 +98,12 @@
 </page-query>
 
 <script>
+import { Pager } from 'gridsome';
+
 export default {
+  components: {
+    Pager,
+  },
   metaInfo() {
     return {
       title: '숨고 기술 블로그',
@@ -109,8 +113,35 @@ export default {
 </script>
 
 <style>
+.pager-container {
+  margin: 0 auto;
+  width: max-content;
+  text-align: center;
+  gap: 20px;
+  display: flex;
+}
+
+.tags {
+  gap: 5px;
+}
+
+.column {
+  width: 100% !important;
+}
+
+.title.is-4 a {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
 .card {
   margin-bottom: 1.5rem;
+}
+
+.content-image {
+  object-fit: cover;
 }
 
 .cards-grid {

@@ -17,18 +17,13 @@
         </p>
         <p>{{ post.node.excerpt }}</p>
       </div>
-      <div>
-        <span v-for="(tag, index) in post.node.tags" :key="tag.id">
+      <div class="tags">
+        <span v-for="tag in post.node.tags" :key="tag.id">
           <div class="tag">
             <g-link :to="tag.path">
               {{ tag.id }}
             </g-link>
           </div>
-
-          <!-- We will add a comma separator for the tags -->
-          <span v-if="index + 1 < post.node.tags.length">
-            ,
-          </span>
         </span>
       </div>
       <nav class="level is-mobile">
@@ -47,3 +42,9 @@ export default {
   props: { post: {} },
 };
 </script>
+
+<style>
+.tags {
+  gap: 5px;
+}
+</style>

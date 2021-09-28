@@ -4,12 +4,14 @@
     <section class="hero is-medium is-primary">
       <div class="hero-body">
         <div class="container">
-          <h1 class="title is-1">
-            {{ pageTitle }}
-          </h1>
-          <h2 v-if="pageSubtitle" class="subtitle">
-            {{ pageSubtitle }}
-          </h2>
+          <div class="titles">
+            <h1 class="title is-1">
+              {{ pageTitle }}
+            </h1>
+            <h2 v-if="pageSubtitle" class="subtitle">
+              {{ pageSubtitle }}
+            </h2>
+          </div>
         </div>
       </div>
     </section>
@@ -45,6 +47,14 @@ export default {
 
 <style lang="scss">
 @import '@/assets/scss/overrides.scss';
+
+.container .titles {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: max-content;
+  margin: auto;
+}
 
 body {
   font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue',
