@@ -127,7 +127,7 @@ export default {
 
 <style>
 .box.tag-container {
-  margin: 12px;
+  margin-top: 12px;
   top: 20px;
   position: sticky;
   text-align: center;

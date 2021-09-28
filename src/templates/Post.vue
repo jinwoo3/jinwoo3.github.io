@@ -23,7 +23,7 @@
       </figure>
       <div class="content">
         <h2 class="title is-5">
-          Posted by <g-link :to="$page.post.author.id">{{ $page.post.author.title }}</g-link>
+          Posted by <g-link :to="$page.post.author.path">{{ $page.post.author.title }}</g-link>
         </h2>
         <p>{{ $page.post.author.blurb }}</p>
       </div>
@@ -93,7 +93,7 @@
        id
      }
      author {
-       id
+       path
        title
        image
        blurb
