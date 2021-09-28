@@ -1,7 +1,5 @@
 <template>
   <Layout :pageTitle="$page.post.title" :pageSubtitle="$page.post.excerpt">
-    <p>{{ $page.allPost.edges }}</p>
-
     <div class="box breadcrumbs">
       <nav class="breadcrumb is-centered" aria-label="breadcrumbs">
         <ul>
@@ -25,9 +23,36 @@
       </figure>
       <div class="content">
         <h2 class="title is-5">
-          Posted by <g-link :to="$page.post.author.path">{{ $page.post.author.title }}</g-link>
+          Posted by <g-link :to="$page.post.author.id">{{ $page.post.author.title }}</g-link>
         </h2>
         <p>{{ $page.post.author.blurb }}</p>
+      </div>
+      <div
+        v-for="post in $page.posts.edges"
+        v-if="$page.post.id === post.node.id"
+        :key="post.node.id"
+        class="posts"
+      >
+        <div class="next">
+          <p v-if="post.next">
+            <g-link :to="post.next.path">
+              {{ post.next.title }} by {{ post.next.author.title }}</g-link
+            >
+          </p>
+          <p v-else>
+            다음 게시글이 없습니다.
+          </p>
+        </div>
+        <div class="previous">
+          <p v-if="post.prev">
+            <g-link :to="post.prev.path">
+              {{ post.prev.title }} by {{ post.prev.author.title }}
+            </g-link>
+          </p>
+          <p v-else>
+            이전 게시글이 없습니다.
+          </p>
+        </div>
       </div>
     </div>
   </Layout>
@@ -35,15 +60,28 @@
 
 <page-query>
   query blog ($path: String){
-    allPost (filter: {path: {in: [$path]}}) {
+    posts: allPost {
       edges {
-        previous {
-          title
+        node {
+          id
         }
-        next {
+        prev: next {
+          path
           title
+          author {
+            title
+            path
+          }
         }
+        next: previous {
+          path
+          title
+          author {
+            title
+            path
+          }
       }
+    }
     }
     post: post(path: $path){
      id
@@ -65,6 +103,15 @@
 </page-query>
 
 <style>
+.posts {
+  margin: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  text-align: center;
+  font-size: large;
+}
+
 .icon.icon-link {
   display: none;
 }
