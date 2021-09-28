@@ -34,23 +34,25 @@
         class="posts"
       >
         <div class="next">
+          다음 게시글
           <p v-if="post.next">
             <g-link :to="post.next.path">
               {{ post.next.title }} by {{ post.next.author.title }}</g-link
             >
           </p>
           <p v-else>
-            다음 게시글이 없습니다.
+            게시글이 없습니다.
           </p>
         </div>
         <div class="previous">
+          이전 게시글
           <p v-if="post.prev">
             <g-link :to="post.prev.path">
               {{ post.prev.title }} by {{ post.prev.author.title }}
             </g-link>
           </p>
           <p v-else>
-            이전 게시글이 없습니다.
+            게시글이 없습니다.
           </p>
         </div>
       </div>
@@ -107,7 +109,7 @@
   margin: 15px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 3rem;
   text-align: center;
   font-size: large;
 }
