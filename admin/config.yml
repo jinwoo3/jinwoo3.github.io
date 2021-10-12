@@ -1,6 +1,6 @@
 backend:
   name: github
-  repo: chad-collins/gridsome-starter-netlifycms-buefy
+  repo: jinwoo3/jinwoo3.github.io
 
 media_folder: 'static/uploads'
 public_folder: 'uploads'
